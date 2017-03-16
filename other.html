@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue 2</title>
+    <link rel="icon" type="image/png" href="https://uxweb.co/content/images/2015/11/logo.png" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container" id="app">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default" style="margin-top: 20px">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Directive for with Vue 2
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="nav nav-default">
+                            <li v-for="(task,index) in tasks">
+                                <del v-if="!task.pending">{{index + 1}}: {{task.name}}</del>
+                                <span v-else>{{index + 1}}: {{task.name}}</span>
+                                <span v-if="task.pending" :style="{color: 'red'}">Pending</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <pre>{{ $data }}</pre>
+            </div>
+        </div>
+    </div>
+
+<script src="https://unpkg.com/vue@2.2.4"></script>
+    <script>
+     var vm = new Vue({
+            el: "#app",
+            data: {
+                tasks: [
+                    {name:'Vue',pending:false},
+                    {name:'Laravel',pending:true},
+                    {name:'Mysql',pending:false}
+                ]
+            }
+        });
+    </script>
+</body>
+</html>

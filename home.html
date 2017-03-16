@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue 2</title>
+    <link rel="icon" type="image/png" href="https://uxweb.co/content/images/2015/11/logo.png" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container" id="app">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default" style="margin-top: 20px">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Directives with Vue 2
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <h4>Work with vue.js?</h4>
+                        <div class="radio">
+                            <label class="radio-inline">
+                                <input type="radio" v-model="vue.exp" :value="true"> Si
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" v-model="vue.exp" :value="false"> No
+                            </label>
+                        </div>
+
+                        <!-- Yes vue -->
+                        <div v-show="vue.exp">
+                            <div :class="{'form-group': true, 'has-error' : vue.years == ''}">
+                                <label class="control-label">How years of experience with vue?</label>
+                                <input type="number" v-model="vue.years" class="form-control">
+                                <p v-if="vue.years == ''" class="help-block">Required number of years</p>
+                            </div>
+
+                            <!-- Yes years -->
+                            <div class="form-group" :class="{'has-error' : descriptionError }">
+                                <label class="control-label" v-if="vue.years < 2" :style="descriptionStyle">What did you learn vue?</label>
+                                <label class="control-label" v-if="vue.years >= 2" :style="descriptionStyle">Tell us experience with vue?</label>
+                                <input type="text" v-model="vue.description" class="form-control">
+                                <p v-if="descriptionError != ''" class="help-block">{{ descriptionError }}</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <pre>{{ $data }}</pre>
+            </div>
+        </div>
+    </div>
+
+<script src="https://unpkg.com/vue@2.2.4"></script>
+    <script>
+     var vm = new Vue({
+            el: "#app",
+            data: {
+                vue: {
+                    exp: false,
+                    years: '',
+                    description: ''
+                }
+            },
+            computed:{
+                descriptionError: function () {
+                    var val = this.vue.description.trim();
+                    if(val == ''){ return 'Required description.';}
+                    if(val.length < 5){ return 'Description higher a 5 characters.';}
+                    if(val.length > 10){ return 'Description  iess a 10 characters.';}
+                },
+                descriptionStyle: function () {
+                    if(!this.descriptionError){
+                        return {color: 'green'};
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
